@@ -28,22 +28,22 @@ module gentexto(
 
 	
    // signal declaration
-   wire [10:0] rom_addr;//direccion de ROM
+   wire [12:0] rom_addr;//direccion de ROM/ 13 bits
 		
 	//signal de direccion de caracter en memoria ROM de objetos
    reg [6:0] char_addr,char_addr_obj;
 	
-   reg [3:0] row_addr;//direccion de fila en la memoria ROM 
+   reg [5:0] row_addr;//direccion de fila en la memoria ROM /6 bits
 	
    //signals de direcciode fila en la ROM de objetos	
-   wire [3:0] row_addr_obj;
+   wire [5:0] row_addr_obj;// 6 bits
 	
-   reg [2:0] bit_addr;//direccion de bit en fila de ROM
+   reg [4:0] bit_addr;//direccion de bit en fila de ROM/ 5 bits
 	
 	//direccion de bit de en memoria ROM de objetos	
-   wire [2:0] bit_addr_obj;
+   wire [4:0] bit_addr_obj;//5 bits
 	
-   wire [7:0] font_word;//Salida de datos en memoria ROM
+   wire [31:0] font_word;//Salida de datos en memoria ROM/32 bits
 	
 	//signals de activacion de objetos
    wire font_bit, obj_on;
@@ -58,25 +58,30 @@ module gentexto(
    //-------------------------------------------
    // Tablero de Fecha literal
 	//-----------------------------------------
-   assign obj_on = (pix_y[9:6]==0) &&(0<=pix_x[9:5]) && (pix_x[9:5]<=13);
-   assign row_addr_obj = pix_y[5:2];
-   assign bit_addr_obj = pix_x[4:2];
+   assign obj_on = (pix_y[9:6]==0) &&(1<=pix_x[9:5]) && (pix_x[9:5]<=19);
+   assign row_addr_obj = pix_y[5:0];
+   assign bit_addr_obj = pix_x[4:0];
 	always @*
-      case(pix_x[8:5])
-			4'h0: char_addr_obj = 7'h00; //  
-         4'h1: char_addr_obj = 7'h46; // F
-         4'h2: char_addr_obj = 7'h45; // E
-         4'h3: char_addr_obj = 7'h43; // C
-			4'h4: char_addr_obj = 7'h48; // H
-			4'h5: char_addr_obj = 7'h41; // A
-         4'h6: char_addr_obj = 7'h00; // 
-         4'h7: char_addr_obj = 7'h4d; // M
-			4'h8: char_addr_obj = 7'h45; // E
-         4'h9: char_addr_obj = 7'h53; // S
-         4'ha: char_addr_obj = 7'h00; //  
-			4'hb: char_addr_obj = 7'h41; // A
-			4'hc: char_addr_obj = 7'h40; // @
-			default: char_addr_obj = 7'h4f; // O
+      case(pix_x[9:5])
+			5'h01: char_addr_obj = 7'h30; // 
+			5'h02: char_addr_obj = 7'h31; // 
+			5'h03: char_addr_obj = 7'h32; // 
+			5'h04: char_addr_obj = 7'h33; // 
+			5'h05: char_addr_obj = 7'h34; // 
+			5'h06: char_addr_obj = 7'h35; // 
+			5'h07: char_addr_obj = 7'h36; // 
+			5'h08: char_addr_obj = 7'h37; // 
+			5'h09: char_addr_obj = 7'h38; // 
+			5'h0a: char_addr_obj = 7'h39; // 
+			5'h0b: char_addr_obj = 7'h40; // 
+			5'h0c: char_addr_obj = 7'h41; // 
+			5'h0d: char_addr_obj = 7'h42; // 
+			5'h0e: char_addr_obj = 7'h43; // 
+			5'h0f: char_addr_obj = 7'h44; // 
+			5'h10: char_addr_obj = 7'h45; // 
+			5'h11: char_addr_obj = 7'h46; // 
+			5'h12: char_addr_obj = 7'h47; // 
+			default: char_addr_obj = 7'h48; // 
 			
       endcase
 		
@@ -107,7 +112,7 @@ module gentexto(
             if (font_bit)
                text_rgb = 3'b001;
 				else 
-					text_rgb=3'b010;
+					text_rgb=3'b000;
       end
 		
 		
