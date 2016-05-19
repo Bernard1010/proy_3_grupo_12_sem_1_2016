@@ -29,7 +29,7 @@ module TOP(clk,
     input ps2d;
     input rx_en;
    output [3:0] code;
-   reg [22:0]cont=23'b0;
+   reg [23:0]cont=24'b0;
 	reg reset= 1'b0;
    
    wire [7:0] XLXN_8;
@@ -50,9 +50,9 @@ module TOP(clk,
 					 
 always@(posedge clk)
 begin
-	if(cont==23'd4999999)
+	if(cont==24'd12499999)
 	begin
-		cont=23'd0;
+		cont=24'd0;
 		reset=~reset;
 		
 		end

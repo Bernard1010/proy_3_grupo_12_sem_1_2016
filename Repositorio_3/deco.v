@@ -25,7 +25,7 @@ module deco(clk,code_i, code_o);
    output reg [3:0] code_o;
    reg [3:0] code_m;
 	reg clko=1'b0;
-	reg [22:0] cont=23'b0;
+	reg [21:0] cont=23'b0;
    
 
 always @*
@@ -50,9 +50,9 @@ end
 
 always@(posedge clk)
 begin
-	if(cont==23'd4999999)
+	if(cont==22'd2499999)
 	begin
-		cont=23'd0;
+		cont=22'd0;
 		clko=~clko;
 		
 		end
