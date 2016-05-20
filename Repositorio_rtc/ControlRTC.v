@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: 
+// Engineer: Ricardo Martinez Vallejos
 // 
 // Create Date:    18:22:19 05/19/2016 
 // Design Name: 
