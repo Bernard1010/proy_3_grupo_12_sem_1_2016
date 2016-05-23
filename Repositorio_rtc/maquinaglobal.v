@@ -18,11 +18,10 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module maquinaglobal(clk_i,aumenta_i,cambio_i,reset_i,AD_o,graba_i,enables,pulsoprogramo,salient,RD,WR,chipselecc_o,state,regseg,regmin,reghora,regdate,regmes,regano,regThora,regTmin,regTseg);
+module maquinaglobal(clk_i,aumenta_i,cambio_i,reset_i,AD_o,enables,pulsoprogramo,salient,RD,WR,chipselecc_o,state,regseg,regmin,reghora,regdate,regmes,regano,regThora,regTmin,regTseg);
 input wire [2:0]enables;
 input clk_i,aumenta_i,reset_i;
 input wire pulsoprogramo;
-input wire graba_i;
 input wire [3:0]cambio_i;
 //input wire [1:0]estado_i;//1 escribe,0 lee
 
@@ -36,7 +35,6 @@ output reg chipselecc_o=1'bz;
 inout tri [7:0] salient;
 
 //wires y registros de la maquina global
-reg horario_i=1'b1;
 reg [7:0] direccion;
 reg [7:0] datoescribir;
 reg leerdato;
@@ -209,7 +207,7 @@ end
 
 decostate decoestados(clk_i,estadob,state);
 controlnumero controlanum(clk_i,aumenta_i,cambio_i,numero);
-maquinainicializacion1 maquinaini(clk_i,enables[2],reset_i,horario_i,direccionini,ADINI,datoescribirini,RDi,WRi,CSi);//******************************************************
+maquinainicializacion1 maquinaini(clk_i,enables[2],reset_i,direccionini,ADINI,datoescribirini,RDi,WRi,CSi);//******************************************************
 retrasoTaccAD retrasoini1(clk_i,enables[2],ADINI,ADatrasadoini);
 retrasotacc2 retrasoini2(clk_i,enables[2],~CSi,leerdatoini);
 retrasotacc2 retrasoini3(clk_i,enables[2],CSi,escribirdatoini);
@@ -217,7 +215,7 @@ maquinalectura1 maquinalee(clk_i,enables[1],reset_i,direccionL,ADL,estadolee,WRL
 retrasoTaccAD retrasolee1(clk_i,enables[1],ADL,ADatrasadoL);
 retrasotacc2 retrasolee2(clk_i,enables[1],~CSL,leerdatolee);
 retrasotacc2 retrasolee3(clk_i,enables[1],CSL,escribirdatolee);
-maquinaescritura3 maquinaescribe(clk_i,enables[0],graba_i,programo,numero,cambio_i,direccionE,ADE,datoescribirE,RDE,WRE,CSE);
+maquinaescritura3 maquinaescribe(clk_i,enables[0],programo,numero,cambio_i,direccionE,ADE,datoescribirE,RDE,WRE,CSE);
 retrasoTaccAD retrasoescribe1(clk_i,enables[0],ADE,ADatrasadoE);
 retrasotacc2 retrasoescribe2(clk_i,enables[0],~CSE,leerdatoE);
 retrasotacc2 retrasoescribe3(clk_i,enables[0],CSE,escribirdatoE);
