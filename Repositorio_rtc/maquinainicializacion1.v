@@ -18,10 +18,9 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module maquinainicializacion1(clk_i,enable,reset,horario,direccion,AD_o,valor,RD,WR,CS);
+module maquinainicializacion1(clk_i,enable,reset,direccion,AD_o,valor,RD,WR,CS);
 	input clk_i,reset;
 	
-	input wire horario;
 	input wire enable;
 	
 	output reg [7:0]direccion=8'bzzzzzzzz;//esta es la linea que va a BUS
@@ -64,14 +63,15 @@ module maquinainicializacion1(clk_i,enable,reset,horario,direccion,AD_o,valor,RD
 
 always@(posedge clk_i)
 begin
-	if(enable==1'b1&& fin==1'b0)
-		begin
-		conta=conta+1'b1;
-		if(reset)
+	if(reset)
 			begin
 			state=a;
+			fin=1'b0;
 			end
-		else
+	
+	else if(enable==1'b1&& fin==1'b0)
+		begin
+		conta=conta+1'b1;
 			(* FULL_CASE, PARALLEL_CASE *) 
 			case (state)
 					
@@ -209,15 +209,7 @@ begin
 						if(conta==5'b0000)
 							begin
 							direccion = 8'h00;//indico la direccion a la cual voy a enviar la información
-							if (horario==1'b1)
-								begin
-								valor=8'b00001010;// envio las instrucciones para un reloj de 24 horas, esta desactivado el set time lock
-								end
-							else
-								begin
-								valor=8'b00011010;// envio las instrucciones para un reloj de 12 horas,esta desactivado el set time lock
-								end
-							
+							valor=8'b00001010;// envio las instrucciones para un reloj de 24 horas, esta desactivado el set time lock
 							RD=1'b1;
 							WR=1'b0;
 							CS=1'b0;
