@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: Ricardo Martínez Vallejos
+// Engineer: 
 // 
 // Create Date:    09:53:46 04/26/2016 
 // Design Name: 
@@ -18,9 +18,9 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module maquinaescritura3(clk_i,enable,programo,numero,cambio,direccion,AD_o,valor,RD,WR,CS);
+module maquinaescritura3(clk_i,enable,reset,programo,numero,cambio,direccion,AD_o,valor,RD,WR,CS);
 	
-	input clk_i,programo;
+	input clk_i,reset,programo;
 	input wire [3:0]cambio;
 	input wire [7:0]numero;
 	
@@ -68,7 +68,6 @@ module maquinaescritura3(clk_i,enable,programo,numero,cambio,direccion,AD_o,valo
 	//reg [4:0] state = a;
 	reg [4:0] conta=5'b11111;
 	reg fin=1'b0;
-	reg reset=1'b0;
 //always @(posedge clk_i)
 //begin
 //conta=conta+1'b1;
@@ -78,7 +77,7 @@ module maquinaescritura3(clk_i,enable,programo,numero,cambio,direccion,AD_o,valo
 
 always@(posedge clk_i)
 begin
-if(~programo)
+if(reset)
 			begin
 			state=a;
 			fin=1'b0;
