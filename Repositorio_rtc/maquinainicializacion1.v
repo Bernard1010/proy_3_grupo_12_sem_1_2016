@@ -762,7 +762,7 @@ begin
 							direccion = 8'hzz;//indico la direccion a la cual voy a enviar la información
 							valor = 8'hzz;// envio la instruccion en hexadecimal de zz
 							
-							fin<=1'b1;
+							fin=1'b1;
 							///state=q;--------------------------------------------------------término maquina de estados
 							end
 						else

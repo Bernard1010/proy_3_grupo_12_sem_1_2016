@@ -70,7 +70,7 @@ else
 	
 end
 
-always@(btn_cambiomaq)
+always@(posedge btn_cambiomaq)
 begin
 	cambiomaq=~cambiomaq;
 end

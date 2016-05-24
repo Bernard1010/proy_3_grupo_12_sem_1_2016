@@ -106,7 +106,7 @@ always @ (posedge clk_i)//outputs***********************************************
 
         // Write to output_port_w at port address 02 hex
         if (port_id == 8'h04) begin
-           enable[2:0]<= out_port;
+           enable[2:0]<= out_port[2:0];
         end
 
         // Write to output_port_x at port address 04 hex
