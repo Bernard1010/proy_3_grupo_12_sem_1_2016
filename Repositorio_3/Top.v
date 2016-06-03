@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: 
+// Engineer: Bernardo Rodriguez Hall
 // 
 // Create Date:    13:52:43 05/16/2016 
 // Design Name: 
@@ -43,12 +43,12 @@ module TOP(clk,
                   .rx_en(1'b1), 
                   .dout(XLXN_8[7:0]), 
                   .rx_done_tick());
-   deco  XLXI_2 (.clk(clk), 	
+   Decodificador  XLXI_2 (.clk(clk), 	
                 .code_i(XLXN_8[7:0]),  
                  .code_o(code[3:0]));
 					 
 					 
-always@(posedge clk)
+always@(posedge clk)//Reset periodico para el modulo ps2 rx
 begin
 	if(cont==24'd12499999)
 	begin

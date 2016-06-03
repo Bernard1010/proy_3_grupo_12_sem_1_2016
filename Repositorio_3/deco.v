@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: 
+// Engineer: Bernardo Rodriguez Hall 
 // 
 // Create Date:    13:29:27 05/16/2016 
 // Design Name: 
@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module deco(clk,code_i, code_o);
+module Decodificador(clk,code_i, code_o);
 
 	input wire [7:0] code_i;
 	input clk;
@@ -27,7 +27,7 @@ module deco(clk,code_i, code_o);
 	reg clko=1'b0;
 	reg [21:0] cont=23'b0;
    
-
+//Decodificador de teclas combinacional
 always @*
 begin
 	
@@ -47,7 +47,7 @@ end
 				
 
 
-
+//divisor de reloj para generar un clock mas lento
 always@(posedge clk)
 begin
 	if(cont==22'd2499999)
@@ -63,7 +63,7 @@ begin
 end
 
 				
-				
+//Actualizacion de salida respecto a un reloj mas lento				
 always@(posedge clko)
 begin
 
