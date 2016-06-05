@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
-// Engineer: Bernardo Rodriguez Hall 
+// Engineer: 
 // 
 // Create Date:    13:29:27 05/16/2016 
 // Design Name: 
@@ -18,25 +18,28 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module Decodificador(clk,code_i, code_o);
+module deco(clk,code_i, code_o);
 
 	input wire [7:0] code_i;
 	input clk;
-   output reg [3:0] code_o;
-   reg [3:0] code_m;
+   output reg [5:0] code_o;
+   reg [5:0] code_m;
 	reg clko=1'b0;
-	reg [21:0] cont=23'b0;
+	reg [19:0] cont=19'b0;
    
-//Decodificador de teclas combinacional
+
 always @*
 begin
 	
 		case (code_i)
-				8'h1c   : code_m <= 4'b0001;
-				8'h1b   : code_m <= 4'b0010;
-				8'h23   : code_m <= 4'b0100;
-				8'h2b   : code_m <= 4'b1000;
-				default : code_m <= 4'b0000;
+				8'h24   : code_m <= 6'b000001;
+				8'h4b   : code_m <= 6'b000010;
+				8'h2d   : code_m <= 6'b000100;
+				8'h5a   : code_m <= 6'b001000;
+				8'h23   : code_m <= 6'b010000;
+				8'h1d   : code_m <= 6'b100000;
+				
+				default : code_m <= 6'b0;
 		endcase
 	
 		
@@ -47,12 +50,12 @@ end
 				
 
 
-//divisor de reloj para generar un clock mas lento
+
 always@(posedge clk)
 begin
-	if(cont==22'd2499999)
+	if(cont==20'd999999)
 	begin
-		cont=22'd0;
+		cont=20'd0;
 		clko=~clko;
 		
 		end
@@ -63,7 +66,7 @@ begin
 end
 
 				
-//Actualizacion de salida respecto a un reloj mas lento				
+				
 always@(posedge clko)
 begin
 
